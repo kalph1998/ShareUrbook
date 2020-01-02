@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View ,ImageBackground,Image , StatusBar} from 'react-native';
+import { StyleSheet, Text, View ,ImageBackground,Image} from 'react-native';
 import bgimage from './assets/background.png'
 import logo from './assets/logo.png'
 

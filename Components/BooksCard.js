@@ -1,14 +1,13 @@
 import React from "react";
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { View, StyleSheet, TouchableWithoutFeedback,ImageBackground } from "react-native";
 
 const Card = props => {
-  const content = <View style={{ ...styles.Card, ...props.style }}>
-
-  </View>;
-
   return (
     <TouchableWithoutFeedback onPress={props.onPress}>
-      {content}
+      <View style={{ ...styles.Card, ...props.style }}>
+        <ImageBackground source={{uri:props.Image}} style={styles.Imagebg}  />
+
+      </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -17,11 +16,17 @@ const styles = StyleSheet.create({
   Card: {
     height: 150,
     width: 101,
-    elevation: 5,
+    elevation: 6,
     borderBottomColor: "black",
     backgroundColor: "white",
-    borderRadius: 20,
+    borderRadius: 15,
     marginHorizontal: 10
+  },
+  Imagebg:{
+    width:'100%',
+    height:'100%',
+    borderRadius:15,
+    overflow:'hidden'
   }
 });
 

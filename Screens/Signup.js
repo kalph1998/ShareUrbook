@@ -1,30 +1,37 @@
-// SignUp.js
-import React,{useState} from 'react'
-import { StyleSheet, Text, View, ImageBackground,Button } from 'react-native'
+
+import React, { useState } from "react";
+import { StyleSheet, Text, View, ImageBackground, Button } from "react-native";
 import { Input } from "react-native-elements";
 import bgimage from "../assets/background.png";
 import { HideWithKeyboard } from "react-native-hide-with-keyboard";
 import Signup from "../Components/signup";
 import firebaseAuth from "../Components/firebase";
 
-
-
-const SignUp =(props)=>{
+const SignUp = (props) => {
   const [email, SetEmail] = useState("");
   const [passWord, SetPassWord] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
 
-const SignUpHandler = ()=>{
-  firebaseAuth.createUserWithEmailAndPassword(email,passWord).then(()=>{
-    props.navigation.push('Home')
-  })
-}
- 
-  
-  return(
-    <ImageBackground source={bgimage} style={styles.backGroundContainer} >
-  <View style={styles.textContainer}>
+  const SignUpHandler = () => {
+    firebaseAuth.createUserWithEmailAndPassword(email, passWord).then(() => {
+      props.navigation.push("Home");
+    })
+    .catch((errors)=>{
+      setErrorMessage({errorMessage:errors.message})
+    })
+    ;
+  };
+
+  return (
+    <ImageBackground source={bgimage} style={styles.backGroundContainer}>
+      <View style={styles.textContainer}>
         <Text style={styles.welcome}>Welcome,Amigo</Text>
       </View>
+      {errorMessage &&
+      <Text style={{ color: 'white',fontSize:20 }}>
+        {errorMessage.errorMessage}
+       </Text>}
+
       <Input
         autoCapitalize="none"
         placeholder="Username"
@@ -40,7 +47,9 @@ const SignUpHandler = ()=>{
         keyboardType="email-address"
         value={email}
         textContentType="emailAddress"
-        onChangeText={(email)=>{SetEmail(email)}}
+        onChangeText={(email) => {
+          SetEmail(email);
+        }}
       />
       <Input
         placeholder="Password"
@@ -56,24 +65,30 @@ const SignUpHandler = ()=>{
         placeholderTextColor={"#ccc"}
         inputContainerStyle={{ borderBottomColor: "#fff" }}
         value={passWord}
-        onChangeText={(password)=>{SetPassWord(password)}}
+        onChangeText={(password) => {
+          SetPassWord(password);
+        }}
       />
-      <Button color="transparent"
-         title="Already have an account? Login "
-         onPress={() => {props.navigation.navigate('SignUp')}}
-          />
+      <Button
+        color="transparent"
+        title="Already have an account? Login "
+        onPress={() => {
+          props.navigation.navigate("SignIn");
+        }}
+      />
       <View style={{ flex: 1 }}>
         <HideWithKeyboard>
-          <Signup style={{ marginTop:30}}  color="rgba(0,0,0,0)" text="create account" onClick={SignUpHandler} />
-          
-          
+          <Signup
+            style={{ marginTop: 30 }}
+            color="rgba(0,0,0,0)"
+            text="create account"
+            onClick={SignUpHandler}
+          />
         </HideWithKeyboard>
       </View>
-      
     </ImageBackground>
-  )
-  
-}
+  );
+};
 const styles = StyleSheet.create({
   backGroundContainer: {
     flex: 1,
@@ -81,10 +96,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textContainer: {
-    flex:1,
+    flex: 1,
     alignItems: "center",
-    
-   
   },
   welcome: {
     fontSize: 45,
@@ -93,6 +106,6 @@ const styles = StyleSheet.create({
     color: "white",
     marginTop: "10%",
   },
-})
+});
 
-export default SignUp
+export default SignUp;

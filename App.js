@@ -1,5 +1,6 @@
 import React from "react";
-import BooksNavigator from "./Navigation/ScreensNavigator";
+import BooksNavigator from "./Navigation/sideDrawer";
+import 'react-native-gesture-handler'
 
 
 

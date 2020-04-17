@@ -24,7 +24,7 @@ const WelcomeScreen = props => {
       </View>
       <View style={styles.logincontainer}>
         <Continue style={styles.Continue} text="Log in"
-        onClick={()=>{props.navigation.navigate('SignUp')}} />
+        onClick={()=>{props.navigation.navigate('SignIn')}} />
       </View>
     </ImageBackground>
   );

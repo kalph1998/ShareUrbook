@@ -9,6 +9,7 @@ import firebaseAuth from "../Components/firebase";
 const loginScreen = (props) => {
   const [email, SetEmail] = useState("");
   const [passWord, SetPassWord] = useState("");
+  const [errorMessage,setErrorMessage] =useState(null);
 
   const handleSignIn = () => {
     firebaseAuth
@@ -16,15 +17,20 @@ const loginScreen = (props) => {
       .then(() => {
         props.navigation.navigate("Home");
       })
-      .catch((error) => {
-        console.log(`ye vala error h ${error}`);
+      .catch((errors) => {
+        setErrorMessage({errorMessage:errors.message})
       });
   };
+
   return (
     <ImageBackground source={bgimage} style={styles.backGroundContainer}>
       <View style={styles.textContainer}>
         <Text style={styles.welcome}>Welcome,Amigo</Text>
       </View>
+      {errorMessage &&
+      <Text style={{ color: 'white',fontSize:20 }}>
+        {errorMessage.errorMessage}
+       </Text>}
 
       <Input
         autoCapitalize="none"
@@ -63,7 +69,7 @@ const loginScreen = (props) => {
       <View style={{ flex: 1 }}>
         <HideWithKeyboard>
           <Signup style={{ marginBottom:15}}  color="rgba(0,0,0,0)" text="login" onClick={handleSignIn} />
-          <Signup color="rgba(0,0,0,0)" text="Signup" onClick={()=>{props.navigation.navigate('Logup')}} />
+          <Signup color="rgba(0,0,0,0)" text="Signup" onClick={()=>{props.navigation.navigate('SignUp')}} />
         </HideWithKeyboard>
       </View>
     </ImageBackground>

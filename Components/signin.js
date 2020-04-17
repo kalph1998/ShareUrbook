@@ -23,12 +23,9 @@ const styles = StyleSheet.create({
     borderRadius:35,
     borderWidth:1,
     overflow:'hidden'
-    
-    
-   
   },
   text: {
-    color: "black",
+    color: "white",
     fontSize: 24,
   }
 });
